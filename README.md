@@ -12,7 +12,8 @@ export PERL_CPANM_HOME=$PREFIX
 export PERL_CPANM_OPT="--local-lib $PREFIX"
 export PERL5LIB=$PREFIX/lib/perl5
 export PATH=$PREFIX/bin:$PATH
-curl -L cpanmin.us | perl - -n https://github.com/oetiker/qx-mojo-app/archive/master.tar.gz
+curl -L cpanmin.us \
+  | perl - -n https://github.com/oetiker/qx-mojo-app/archive/master.tar.gz
 mkdir -p ~/src
 cd ~/src
 mojo generate qx_mojo_app Demo
