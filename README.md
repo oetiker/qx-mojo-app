@@ -1,5 +1,5 @@
-Mojolicious::Command::generator::qx_mojo_app
-============================================
+Qooxdoo/Mojolication App Generator
+==================================
 
 A Mojlicious generator template for creating JavaScript webapplications.
 
