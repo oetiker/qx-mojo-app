@@ -1,0 +1,6 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+lib/Mojolicious/Command/generate/qx_mojo_app.pm
+t/simple.t
