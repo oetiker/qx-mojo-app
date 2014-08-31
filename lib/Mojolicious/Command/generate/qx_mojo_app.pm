@@ -45,6 +45,7 @@ EOF
         manifestJson => 'frontend/Manifest.json',
         configJson => 'frontend/config.json',
         applicationJs => 'frontend/source/class/'.$name.'/Application.js',
+        indexHtml => 'frontend/source/index.html',
         serviceJs => 'frontend/source/class/'.$name.'/data/RpcService.js',
         test => 't/basic.t',
     };
@@ -104,6 +105,7 @@ Setup
 
 You are looking at a template for creating a qooxdoo application with
 a mojolicious backend. It is a classic configure make install setup.
+Get a copy of the qooxdoo sdk from www.qooxdoo.org
 
  ./configure --prefix=/opt/myapp --with-qooxdoo-sdk=$HOME/sdk/qooxdoo-4.0.1-sqk
 
@@ -391,7 +393,7 @@ QX_CLASS = <%= $p->{name} %>
 MJ_CLASS = <%= $p->{class} %>
 MJ_SCRIPT = <%= $p->{name} %>
 
-BIN = bin/$(MJ_SCRIPT).pl bin/run.sh
+BIN = bin/$(MJ_SCRIPT).pl bin/$(MJ_SCRIPT)-source-mode.sh
 
 PM :=  $(shell find lib/ thirdparty/lib/perl5 -name "*.pm")  $(shell test -f thirdparty && find thirdparty/lib/perl5 -type f) 
 
@@ -454,7 +456,7 @@ Mojolicious::Commands->start_app('<%= $p->{class} %>');
 export QX_SRC_MODE=1
 export MOJO_MODE=development
 export MOJO_LOG_LEVEL=debug
-exec ./<%= $p->{name} %>.pl prefork --listen 'https://*:<%= int(rand()*3000) %>'
+exec ./<%= $p->{name} %>.pl prefork --listen 'http://*:<%= int(rand()*5000+3024) %>'
 
 @@ appclass
 % ######################################################################################
@@ -524,7 +526,7 @@ S<<%= $p->{fullName} %> E<lt><%= $p->{email} %>E<gt>>
 % ######################################################################################
 % ######################################################################################
 % my $p = shift;
-package <%= $p->{controller} %>
+package <%= $p->{controller} %>;
 use Mojo::Base qw(Mojolicious::Plugin::Qooxdoo::JsonRpcController);
 
 =head1 NAME
@@ -533,7 +535,7 @@ use Mojo::Base qw(Mojolicious::Plugin::Qooxdoo::JsonRpcController);
 
 =head1 SYNOPSIS
 
-  $route->any("/jsonrpc")->to(<%= $p->{controller} %>#dispatch");
+  $route->any("jsonrpc")->to(<%= $p->{controller} %>#dispatch");
 
 =head1 DESCRIPTION
 
@@ -551,10 +553,23 @@ All the methods of L<Mojolicious::Plugin::Qooxdoo::JsonRpcController> as well as
 
 =cut
 
-=head
-has 'service' => sub { "<%= $p->{name} %>"};
+=head1 ATTRIBUTES
 
-has 'log' => sub { shift->app->log };
+The controller the following attributes
+
+=cut
+
+=head2 service
+
+the service property defines the name of the service
+
+=cut
+
+has service => sub { "<%= $p->{name} %>"};
+
+has log => sub { shift->app->log };
+
+=head1 METHODS
 
 The controller provides the following methods
 
@@ -569,7 +584,7 @@ the dispatcher will call allow_rpc_access prior to handing over controll.
 our %allow = (
     ping => 1,
     getUptime => 1,
-    getError => 1,
+    makeException => 1,
 );
 
 
@@ -601,7 +616,7 @@ return the output of uptime.
 
 sub getUptime {
     my $self = shift;    
-    return `uptime`;
+    return `/usr/bin/uptime`;
 }
 
 =head2 makeException(code,message)
@@ -612,11 +627,20 @@ Create an exception.
 
 sub makeException {
     my $self = shift;
-    my $code = shift;
-    my $message = shift;
-    die { code => $code, message => $message };
+    my $arg = shift;
+    die Exception->new(code => $arg->{code}, message => $arg->{message} );
 }
 
+package Exception;
+
+use Mojo::Base -base;
+has 'code';
+has 'message';
+use overload ('""' => 'stringify');
+sub stringify {
+    my $self = shift;
+    return "ERROR ".$self->code.": ".$self->message;
+}
 
 1;
 <%= '__END__' %>
@@ -760,31 +784,32 @@ qx.Class.define("<%= $p->{name} %>.Application", {
             }
 
             var root = this.getRoot();
+            var layout = new qx.ui.layout.Grid(10, 20)
             var grid = new qx.ui.container.Composite(new qx.ui.layout.Grid(10, 20));
             root.add(grid, {
-                left   : 0,
-                top    : 0,
-                right  : 0,
-                bottom : 0
+                left   : 20,
+                top    : 20,
+                right  : 20,
+                bottom : 20
             });
 
             var rpc = <%= $p->{name} %>.data.RpcService.getInstance();
             
             /** Server Exception **************************************/
             grid.add(new qx.ui.basic.Label('Server Response:'),{ row: 0,column: 0});
-            var serverException = qx.ui.form.TextField().set({readOnly: true});
+            var serverException = new qx.ui.form.TextField().set({readOnly: true});
             grid.add(serverException,{row:0,column:1});
 
             /** Ping Button ****************************************/
             var pingButton = new qx.ui.form.Button("PingTest");
             grid.add(pingButton,{row: 1,column: 0});
-            var pingText = qx.ui.form.TextField();
+            var pingText = new qx.ui.form.TextField();
             grid.add(pingText,{row: 1,column: 1});
-            var pingResponse = qx.ui.form.TextField().set({readOnly: true});
+            var pingResponse = new qx.ui.form.TextField().set({readOnly: true});
             grid.add(pingResponse,{row: 1,column: 2});
 
             pingButton.addListener('execute',function(){
-                rpc.callAsyncSmart(function(data,exc) {
+                rpc.callAsync(function(data,exc) {
                     if (exc){
                         serverException.setValue('ERROR:' + exc.message + ' (' + exc.code +')');
                         return;
@@ -794,34 +819,35 @@ qx.Class.define("<%= $p->{name} %>.Application", {
             });
 
             /** Uptime ****************************************/
-            var uptimeText = qx.ui.form.TextField().set({ readOnly: true});
+            grid.add(new qx.ui.basic.Label('Uptime:'),{ row: 2,column: 0});
+            var uptimeText = new qx.ui.form.TextField().set({ readOnly: true});
             grid.add(uptimeText,{row: 2,column: 1});
-            var timer = qx.event.Timer(1000);
+            var timer = new qx.event.Timer(10000);
             timer.addListener('interval',function(){
-                rpc.callAsyncSmart(function(data,exc) {
+                rpc.callAsync(function(data,exc) {
                     if (exc){
                         serverException.setValue('ERROR:' + exc.message + ' (' + exc.code +')');
                         return;
                     }
                     uptimeText.setValue(data);
-                },'getUptimer');
+                },'getUptime');
             });
-
+			timer.start();
             /** Trigger Exception ****************************************/
             var exButton = new qx.ui.form.Button("ExceptionTest");
             grid.add(exButton,{row: 3,column: 0});
-            var exText = qx.ui.form.TextField('Sample Exception');
+            var exText = new qx.ui.form.TextField('Sample Exception');
             grid.add(exText,{row: 3,column: 1});
-            var exCode = qx.ui.form.TextField('343');
-            grid.add(exCode,{row: 1,column: 2});
+            var exCode = new qx.ui.form.TextField('343');
+            grid.add(exCode,{row: 3,column: 2});
 
-            pingButton.addListener('execute',function(){
-                rpc.callAsyncSmart(function(data,exc) {
+            exButton.addListener('execute',function(){
+                rpc.callAsync(function(data,exc) {
                     if (exc){
                         serverException.setValue('ERROR:' + exc.message + ' (' + exc.code +')');
                         return;
                     }
-                },'ping',{message: exText.getValue(), code: exCode.getValue()});
+                },'makeException',{message: exText.getValue(), code: exCode.getValue()});
             });
         }
     }
@@ -877,6 +903,22 @@ $t->post_ok('/root/jsonrpc','{"id":1,"service":"<%= $p->{name} %>","method":"pin
   ->json_is('',{id=>1,result=>'hello'},'post request');
 
 exit 0;
+
+@@ indexHtml
+% my $p = shift;
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <!-- #VERSION# / #DATE# -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="SHORTCUT ICON" href="resource/<%= $p->{name} %>/favicon.ico"/>
+  <title> Extopus </title>  
+</head>
+<body>
+<div style="text-align: center; font-size: 30pt; right-margin: auto; margin-top: 100px">loading <%= $p->{Class} %> ...</div>
+<script type="text/javascript" src="script/<%= $p->{name} %>.js?v=#VERSION#"></script>
+</body>
+</html>
 
 __END__
 
