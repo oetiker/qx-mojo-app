@@ -17,11 +17,11 @@ curl -L cpanmin.us \
 mkdir -p ~/src
 cd ~/src
 mojo generate qx_mojo_app Demo
-cd Demo
+cd demo
 ```
 
 Et voilà, you are looking at your first Qooxdoo/Mojolicious app. Have a look
-at the README in the Demo directory for further instructions.
+at the README in the demo directory for further instructions.
 
 
 Enjoy
