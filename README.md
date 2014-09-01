@@ -1,7 +1,12 @@
 Qooxdoo&Mojolicious App Generator
 =================================
 
-A Mojlicious generator template for creating JavaScript webapplications.
+A Mojolicious generator template for creating JavaScript webapplications.
+
+With qx-mojo-app you can create web app with a server part written in perl
+and a client part written in javascript using the qooxdoo framework.
+
+The app comes complete with an automake configure system, ready for distribution.
 
 Quickstart
 ----------
