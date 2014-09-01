@@ -1,5 +1,5 @@
-Qooxdoo/Mojolication App Generator
-==================================
+Qooxdoo&Mojolicious App Generator
+=================================
 
 A Mojlicious generator template for creating JavaScript webapplications.
 
