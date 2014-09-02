@@ -900,7 +900,7 @@ my $t = Test::Mojo->new('<%= $p->{class} %>');
 $t->get_ok('/asdfasdf')->status_is(404);
 
 $t->post_ok('/jsonrpc','{"id":1,"service":"<%= $p->{name} %>","method":"ping","params":["hello"]}')
-  ->json_is('',{id=>1,result=>'hello'},'post request');
+  ->json_is('',{id=>1,result=>'got hello'},'post request');
 
 exit 0;
 
