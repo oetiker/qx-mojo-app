@@ -107,7 +107,7 @@ You are looking at a template for creating a qooxdoo application with
 a mojolicious backend. It is a classic configure make install setup.
 Get a copy of the qooxdoo sdk from www.qooxdoo.org
 
- ./configure --prefix=/opt/myapp --with-qooxdoo-sdk=$HOME/sdk/qooxdoo-4.0.1-sqk
+ ./configure --prefix=$HOME/opt/<%= $p->{name} %> --with-qooxdoo-sdk=$HOME/sdk/qooxdoo-4.0.1-sqk
 
 Configure will check if the necessary items are in place and give
 hints on how to fix the situation if something is missing.
