@@ -1,0 +1,21 @@
+language: perl
+
+perl:
+  - "5.18"
+  - "5.16"
+  - "5.14"
+  - "5.12"
+  - "5.10"
+
+before_install:
+  cpanm -n Devel::Cover::Report::Coveralls
+
+script:
+  perl Makefile.PL && make && cover -test -report coveralls +ignore example
+  mojo generate qx_mojo_app Demo
+  cd Demo
+  wget http://downloads.sourceforge.net/qooxdoo/qooxdoo-4.0.1-sdk.zip
+  unzip http://downloads.sourceforge.net/qooxdoo/qooxdoo-4.0.1-sdk.zip
+  ./configure --with-qooxdoo-sdk `pwd`/qooxdoo-4.0.1-sdk
+  make
+  perl t/basic.t
