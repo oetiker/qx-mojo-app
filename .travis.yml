@@ -15,7 +15,7 @@ script:
   - perl -MDevel::Cover t/simple.t
   - perl -MDevel::Cover `which mojo` generate qx_mojo_app Demo
   - cover -report coveralls
-  - cd Demo
+  - cd demo
   - wget http://downloads.sourceforge.net/qooxdoo/qooxdoo-4.0.1-sdk.zip
   - unzip http://downloads.sourceforge.net/qooxdoo/qooxdoo-4.0.1-sdk.zip
   - ./configure --with-qooxdoo-sdk `pwd`/qooxdoo-4.0.1-sdk
