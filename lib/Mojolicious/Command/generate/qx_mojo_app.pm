@@ -885,8 +885,8 @@ qx.Class.define('<%= $p->{name} %>.data.RpcService', {
 % my $p = shift;
 #!/usr/bin/env perl
 use FindBin;
-use lib $FindBin::Bin.'/../thirdparty/lib/perl5';
-use lib $FindBin::Bin.'/../lib';
+use lib $FindBin::Bin.'/../backend/thirdparty/lib/perl5';
+use lib $FindBin::Bin.'/../backend/lib';
 
 
 use Test::More tests => 6;
