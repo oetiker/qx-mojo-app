@@ -1,6 +1,9 @@
 Qooxdoo&Mojolicious App Generator
 =================================
 
+[![Build Status](https://travis-ci.org/oetiker/qx-mojo-app.svg?branch=master)](https://travis-ci.org/oetiker/qx-mojo-app)
+[![Coverage Status](https://img.shields.io/coveralls/oetiker/qx-mojo-app.svg)](https://coveralls.io/r/oetiker/qx-mojo-app?branch=master)
+
 A Mojolicious generator template for creating JavaScript webapplications.
 
 With qx-mojo-app you can create web app with a server part written in perl
