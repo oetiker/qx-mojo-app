@@ -17,7 +17,7 @@ script:
   - cover -report coveralls
   - cd demo
   - wget http://downloads.sourceforge.net/qooxdoo/qooxdoo-4.0.1-sdk.zip
-  - unzip http://downloads.sourceforge.net/qooxdoo/qooxdoo-4.0.1-sdk.zip
+  - unzip qooxdoo-4.0.1-sdk.zip
   - ./configure --with-qooxdoo-sdk `pwd`/qooxdoo-4.0.1-sdk
   - make
   - perl t/basic.t
