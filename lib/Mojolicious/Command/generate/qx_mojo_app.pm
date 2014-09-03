@@ -158,7 +158,7 @@ Tobi Oetiker <tobi@oetiker.ch>
 
 #  Copyright (C) <%= $p->{year} %> <%= $p->{fullName} %>
 
-AC_INIT([extopus],m4_esyscmd([tr -d '\n' < VERSION]),[<%= $p->{email} %>])
+AC_INIT([<%= $p->{name}],m4_esyscmd([tr -d '\n' < VERSION]),[<%= $p->{email} %>])
 AC_PREREQ([2.59])
 AC_CONFIG_AUX_DIR(conftools)
 
@@ -181,7 +181,7 @@ if test "x$PERL" != "x"; then
   $PERL -e "use $ac_perl_version;" >/dev/null 2>&1
   if test $? -ne 0; then
     AC_MSG_RESULT(no);
-    AC_MSG_ERROR(at least version 5.10.1 is required to run extopus)
+    AC_MSG_ERROR(at least version 5.10.1 is required to run mojolicious)
   else
     AC_MSG_RESULT(ok);
   fi
@@ -759,14 +759,14 @@ clean-local:
  *********************************************************************** */
 
 /**
- * Main extopus application class.
+ * Main application class.
  */
 qx.Class.define("<%= $p->{name} %>.Application", {
     extend : qx.application.Standalone,
 
     members : {
         /**
-         * Launch the extopus application.
+         * Launch the application.
          *
          * @return {void} 
          */
@@ -910,7 +910,7 @@ exit 0;
   <!-- #VERSION# / #DATE# -->
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="SHORTCUT ICON" href="resource/<%= $p->{name} %>/favicon.ico"/>
-  <title> Extopus </title>  
+  <title> <%= $p->{class} %> </title>  
 </head>
 <body>
 <div style="text-align: center; font-size: 30pt; right-margin: auto; margin-top: 100px">loading <%= $p->{Class} %> ...</div>
