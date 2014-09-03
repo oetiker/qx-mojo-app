@@ -158,7 +158,7 @@ Tobi Oetiker <tobi@oetiker.ch>
 
 #  Copyright (C) <%= $p->{year} %> <%= $p->{fullName} %>
 
-AC_INIT([<%= $p->{name}],m4_esyscmd([tr -d '\n' < VERSION]),[<%= $p->{email} %>])
+AC_INIT([<%= $p->{name} %>],m4_esyscmd([tr -d '\n' < VERSION]),[<%= $p->{email} %>])
 AC_PREREQ([2.59])
 AC_CONFIG_AUX_DIR(conftools)
 
