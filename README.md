@@ -21,7 +21,7 @@ The following was tested on a fresh xubuntu 12.04 and 14.04 x64
 # install dependencies
 # --------------------
 sudo apt-get install curl
-sudo apt-get install autoconf
+sudo apt-get install automake
 
 # -----------
 # get qooxdoo
