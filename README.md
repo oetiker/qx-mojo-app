@@ -13,8 +13,28 @@ The app comes complete with an automake configure system, ready for distribution
 
 Quickstart
 ----------
+The following was tested on a fresh xubuntu 12.04 and 14.04 x64
 
 ```
+
+# --------------------
+# install dependencies
+# --------------------
+sudo apt-get install curl
+sudo apt-get install autoconf
+
+# -----------
+# get qooxdoo
+# -----------
+cd
+mkdir sdk
+cd sdk
+wget http://downloads.sourceforge.net/qooxdoo/qooxdoo-4.0.1-sdk.zip
+unzip qooxdoo-4.0.1-sdk.zip
+
+# -----------------------------------
+# install mojo, set env, generate app
+# -----------------------------------
 PREFIX=$HOME/opt/mojolicious
 export PERL_CPANM_HOME=$PREFIX
 export PERL_CPANM_OPT="--local-lib $PREFIX"
@@ -22,10 +42,16 @@ export PERL5LIB=$PREFIX/lib/perl5
 export PATH=$PREFIX/bin:$PATH
 curl -L cpanmin.us \
   | perl - -n https://github.com/oetiker/qx-mojo-app/archive/master.tar.gz
+
+# --------
+# make app
+# --------
 mkdir -p ~/src
 cd ~/src
 mojo generate qx_mojo_app Demo
 cd demo
+
+# ..continue reading README in demo/ (see below)
 ```
 
 Et voilà, you are looking at your first Qooxdoo/Mojolicious app. Have a look
