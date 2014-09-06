@@ -19,5 +19,8 @@ script:
   - wget http://downloads.sourceforge.net/qooxdoo/qooxdoo-4.0.1-sdk.zip
   - unzip qooxdoo-4.0.1-sdk.zip >/dev/null
   - ./configure --with-qooxdoo-sdk=`pwd`/qooxdoo-4.0.1-sdk
+  - make get-thirparty-modules
   - make
+  - make dist
+  - sudo make install
   - perl t/basic.t

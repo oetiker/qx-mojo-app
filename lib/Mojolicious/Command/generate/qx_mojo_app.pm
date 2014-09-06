@@ -11,7 +11,7 @@ has usage => sub { shift->extract_usage };
 
 sub run {
     my ($self, $class) = @_;
-    $class ||= 'MyApp';
+    $class ||= 'MyMojoQxApp';
 
     # Prevent bad applications
     die <<EOF unless $class =~ /^[A-Z](?:\w|::)+$/;
@@ -31,7 +31,7 @@ EOF
         PERL_MODULES => 'PERL_MODULES',
         VERSION => 'VERSION',
         README => 'README',
-        AUTHOR => 'AUTHOR',
+        AUTHORS => 'AUTHORS',
         LICENSE => 'LICENSE',
         COPYRIGHT => 'COPYRIGHT',
         CHANGES => 'CHANGES',
@@ -250,7 +250,7 @@ AC_SUBST(PERL5LIB)
 
 mod_ok=1
 if test "$enable_pkgonly" != yes; then
-   for module in m4_esyscmd([cat PERL_MODULES | tr '\n' ' ' | sed 's/\@[^ ]*//g']); do
+   for module in m4_esyscmd([tr '\n' ' ' < PERL_MODULES | sed 's/\@[^ ]*//g']); do
      AC_MSG_CHECKING([checking for perl module '$module'])
      if ${PERL} -I$actual_prefix/thirdparty/lib/perl5 -e 'use '$module 2>/dev/null ; then
          AC_MSG_RESULT([Ok])
@@ -344,7 +344,7 @@ Mojolicious::Plugin::Qooxdoo
 % ######################################################################################
 0.0.0
 
-@@ AUTHOR
+@@ AUTHORS
 % ######################################################################################
 % ######################################################################################
 % my $p = shift;
