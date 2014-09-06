@@ -61,7 +61,7 @@ EOF
     }
 
     for my $key (keys %$file){
-        $self->render_to_rel_file($key, $name.'/'.$file->{$key}, { 
+        $self->render_to_rel_file($key, $name.'/'.$file->{$key}, {
             class => $class,
             name => $name,
             class_path => $class_path,
@@ -98,14 +98,19 @@ __DATA__
 Version: #VERSION#
 Date: #DATE#
 
-<%= $p->{class} %> is an cool web application.
+<%= $p->{class} %> is a cool web application.
+
+You are looking at a template for creating a qooxdoo application with
+a mojolicious backend. It is a classic "configure - make - install" setup.
+
+Prerequisite
+------------
+
+Get a copy of the qooxdoo sdk from www.qooxdoo.org.
+If you followed the "Quickstart" on https://github.com/oetiker/qx-mojo-app you are already set with a copy of the qooxdoo sdk in $HOME/sdk/qooxdoo-4.0.1-sdk. In this case immediately proceed with "Setup".
 
 Setup
 -----
-
-You are looking at a template for creating a qooxdoo application with
-a mojolicious backend. It is a classic configure make install setup.
-Get a copy of the qooxdoo sdk from www.qooxdoo.org
 
  ./configure --prefix=$HOME/opt/<%= $p->{name} %> --with-qooxdoo-sdk=$HOME/sdk/qooxdoo-4.0.1-sdk
 
@@ -223,7 +228,7 @@ AC_ARG_WITH(qooxdoo-sdk,AC_HELP_STRING([--with-qooxdoo-sdk=DIR],[Where can we fi
         cat <<NOTES
 
 ** Aborting Configure *************************************
-   
+
 You specified --with-qooxdoo-sdk=DIR without pointing it
 to a copy of the qooxdoo sdk. If you specify the option,
 make sure there is a copy of the qooxdoo sdk present.
@@ -245,7 +250,7 @@ AC_SUBST(PERL5LIB)
 
 mod_ok=1
 if test "$enable_pkgonly" != yes; then
-   for module in m4_esyscmd([cat PERL_MODULES | tr '\n' ' ' | sed 's/\@[^ ]*//g']); do 
+   for module in m4_esyscmd([cat PERL_MODULES | tr '\n' ' ' | sed 's/\@[^ ]*//g']); do
      AC_MSG_CHECKING([checking for perl module '$module'])
      if ${PERL} -I$actual_prefix/thirdparty/lib/perl5 -e 'use '$module 2>/dev/null ; then
          AC_MSG_RESULT([Ok])
@@ -272,7 +277,7 @@ if test x$QOOXDOO_PATH = x; then
     cat <<NOTES
 
 ** QOOXDOO SDK NOT INSTALLED **********************************
-   
+
 You did NOT specify the --with-qooxdoo-sdk configuration
 option. This is fine if you got a packed version of this
 application. If you are developping, you must have a copy
@@ -286,7 +291,7 @@ if test x$mod_ok = x0; then
     cat <<NOTES
 
 ** SOME PERLMODULES ARE MISSING *******************************
-   
+
 If you know where perl can find the missing modules, set
 the PERL5LIB environment variable accordingly.
 
@@ -300,7 +305,7 @@ fi
 cat <<NOTES
 
 ** CONFIGRUE DONE **********************************************
-   
+
 Settings:
 
   PERL5LIB = ${PERL5LIB:-"not set"}
@@ -395,11 +400,11 @@ MJ_SCRIPT = <%= $p->{name} %>
 
 BIN = bin/$(MJ_SCRIPT).pl bin/$(MJ_SCRIPT)-source-mode.sh
 
-PM :=  $(shell find lib/ thirdparty/lib/perl5 -name "*.pm")  $(shell test -f thirdparty && find thirdparty/lib/perl5 -type f) 
+PM :=  $(shell find lib/ thirdparty/lib/perl5 -name "*.pm")  $(shell test -f thirdparty && find thirdparty/lib/perl5 -type f)
 
 POD :=  $(shell find lib/ -name "*.pod")
 
-RES :=  $(shell test -d public/resource && find public/resource -type f)        
+RES :=  $(shell test -d public/resource && find public/resource -type f)
 
 TEMPL := $(shell test -d templates && find templates -type f)
 
@@ -420,9 +425,9 @@ if BUILD_QOOXDOO_APP
 public/script/$(QX_CLASS).js: $(shell find ../frontend/source/class/$(QX_CLASS) -name "*.js") $(QOOXDOO_PATH)/framework/config.json ../configure
 	cd ../frontend && $(QOOXDOO_PATH)/tool/bin/generator.py -m QOOXDOO_PATH:$(QOOXDOO_PATH) -m CACHE:./cache -m BUILD_PATH:../backend/public build
 	$(PERL) -i -p -e 's/#VERSION#/$(PACKAGE_VERSION)/g;s/#YEAR#/$(YEAR)/g;s/#DATE#/$(DATE)/g;' public/index.html public/script/$(QX_CLASS).js
-         
+
 endif
-         
+
 install-exec-hook:
 	[ "$(PERL5LIB)" != "" ] && cd "$(DESTDIR)$(bindir)" && $(PERL) -i -p -e 's{.*# PERL5LIB}{use lib qw($(PERL5LIB)); # PERL5LIB}' *.pl || true
 	cd "$(DESTDIR)$(bindir)" && $(PERL) -i -p -e 's{^#!.*perl.*}{#!$(PERL)};' *.pl
@@ -505,7 +510,7 @@ sub startup {
     $app->plugin('qooxdoo',{
         path => '/jsonrpc',
         controller => 'RpcService'
-    }); 
+    });
 }
 
 1;
@@ -539,7 +544,7 @@ use Mojo::Base qw(Mojolicious::Plugin::Qooxdoo::JsonRpcController);
 
 =head1 DESCRIPTION
 
-This controller handles the rpc calles from the qooxdoo frontend. 
+This controller handles the rpc calles from the qooxdoo frontend.
 
 =head1 ATTRIBUTES
 
@@ -591,9 +596,9 @@ our %allow = (
 sub allow_rpc_access {
     my $self = shift;
     my $method = shift;
-    return $allow{$method}; 
+    return $allow{$method};
 }
-   
+
 
 =head2 ping(text)
 
@@ -612,10 +617,10 @@ sub ping {
 
 return the output of uptime.
 
-=cut  
+=cut
 
 sub getUptime {
-    my $self = shift;    
+    my $self = shift;
     return `/usr/bin/uptime`;
 }
 
@@ -675,7 +680,7 @@ source: source/script/$(CLASS).js
 
 $(GENTARGETS):
 	$(QOOXDOO_PATH)/tool/bin/generator.py -m QOOXDOO_PATH:$(QOOXDOO_PATH) -m CACHE:./cache $@
-   
+
 source/script/$(CLASS).js: $(shell find source/class/ -name "*.js")
 	$(QOOXDOO_PATH)/tool/bin/generator.py -m QOOXDOO_PATH:$(QOOXDOO_PATH) -m CACHE:./cache source
 
@@ -690,17 +695,17 @@ clean-local:
 % ######################################################################################
 % my $p = shift;
 {
-  "info" : 
+  "info" :
   {
     "name" : "<%= $p->{class} %>",
 
     "summary" : "<%= $p->{class} %> web app",
     "description" : "A generic qooxdoo mojo demo app.",
-    
+
     "homepage" : "https://github.com/oetiker/qx-mojo-app",
 
     "license" : "???",
-    "authors" : 
+    "authors" :
     [
       {
         "name" : "<%= "$p->{fullName} ($p->{userName})" %>",
@@ -711,8 +716,8 @@ clean-local:
     "version" : "#VERSION#",
     "qooxdoo-versions": ["4.0"]
   },
-  
-  "provides" : 
+
+  "provides" :
   {
     "namespace"   : "<%= $p->{name} %>",
     "encoding"    : "utf-8",
@@ -768,7 +773,7 @@ qx.Class.define("<%= $p->{name} %>.Application", {
         /**
          * Launch the application.
          *
-         * @return {void} 
+         * @return {void}
          */
         main : function() {
             // Call super class
@@ -794,7 +799,7 @@ qx.Class.define("<%= $p->{name} %>.Application", {
             });
 
             var rpc = <%= $p->{name} %>.data.RpcService.getInstance();
-            
+
             /** Server Exception **************************************/
             grid.add(new qx.ui.basic.Label('Server Response:'),{ row: 0,column: 0});
             var serverException = new qx.ui.form.TextField().set({readOnly: true});
@@ -910,7 +915,7 @@ exit 0;
   <!-- #VERSION# / #DATE# -->
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="SHORTCUT ICON" href="resource/<%= $p->{name} %>/favicon.ico"/>
-  <title> <%= $p->{class} %> </title>  
+  <title> <%= $p->{class} %> </title>
 </head>
 <body>
 <div style="text-align: center; font-size: 30pt; right-margin: auto; margin-top: 100px">loading <%= $p->{Class} %> ...</div>
