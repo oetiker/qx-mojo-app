@@ -12,7 +12,7 @@ WriteMakefile(
   LICENSE      => 'artistic_2',
   PREREQ_PM    => {
     'Mojolicious' => '5.0',
-    'Mojolicious::Plugin::Qooxdoo' => '0.9',
+    'Mojolicious::Plugin::Qooxdoo' => '0.901',
   },
   META_MERGE   => {
     requires  => {perl => '5.010001'},
