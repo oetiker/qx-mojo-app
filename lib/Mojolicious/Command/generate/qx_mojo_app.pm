@@ -384,7 +384,7 @@ dist-hook:
 
 get-thirdparty-modules:
 	[ -e $(THIRDPARTY)/bin/cpanm ] || mkdir -p $(THIRDPARTY)/bin && wget --no-check-certificate -O $(THIRDPARTY)/bin/cpanm cpanmin.us && chmod 755 $(THIRDPARTY)/bin/cpanm
-	cat PERL_MODULES | PERL_CPANM_HOME=$(THIRDPARTY) PERL_CPANM_OPT="--notest --local-lib $(THIRDPARTY)" xargs $(THIRDPARTY)/bin/cpanm
+	cat PERL_MODULES | PERL_CPANM_HOME=$(THIRDPARTY) PERL_CPANM_OPT="--notest --local-lib $(THIRDPARTY)" xargs $(PERL) $(THIRDPARTY)/bin/cpanm
 
 #END
 
