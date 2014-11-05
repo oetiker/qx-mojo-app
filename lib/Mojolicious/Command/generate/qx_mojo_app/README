@@ -12,8 +12,10 @@ a Mojolicious backend. It is a classic "configure - make - install" setup.
 Prerequisite
 ------------
 
-Get a copy of the Qooxdoo sdk from www.qooxdoo.org.
-If you followed the "Quickstart" on https://github.com/oetiker/qx-mojo-app you are already set with a copy of the Qooxdoo sdk in $HOME/sdk/qooxdoo-4.0.1-sdk. In this case immediately proceed with "Setup".
+Get a copy of the Qooxdoo sdk from www.qooxdoo.org.  If you followed the
+"Quickstart" on https://github.com/oetiker/qx-mojo-app you are already set
+with a copy of the Qooxdoo sdk in $HOME/sdk/qooxdoo-4.0.1-sdk.  In this case
+immediately proceed with "Setup".
 
 Setup
 -----
@@ -55,10 +57,10 @@ You can also package the application as a nice tar.gz file by running
 Learning
 --------
 
-To learn more about Qooxdoo, go to their website and read up on Qoodoo desktop:
+To learn more about Qooxdoo, go to their website and read up on Qooxdoo desktop:
 
   www.qooxdoo.org
 
 Enjoy!
 
-Tobi Oetiker <tobi@oetiker.ch>
+<%= "$p->{fullName} <$p->{email}>" %>
