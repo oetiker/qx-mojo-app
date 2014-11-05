@@ -100,14 +100,14 @@ Date: #DATE#
 
 <%= $p->{class} %> is a cool web application.
 
-You are looking at a template for creating a qooxdoo application with
-a mojolicious backend. It is a classic "configure - make - install" setup.
+You are looking at a template for creating a Qooxdoo application with
+a Mojolicious backend. It is a classic "configure - make - install" setup.
 
 Prerequisite
 ------------
 
-Get a copy of the qooxdoo sdk from www.qooxdoo.org.
-If you followed the "Quickstart" on https://github.com/oetiker/qx-mojo-app you are already set with a copy of the qooxdoo sdk in $HOME/sdk/qooxdoo-4.0.1-sdk. In this case immediately proceed with "Setup".
+Get a copy of the Qooxdoo sdk from www.qooxdoo.org.
+If you followed the "Quickstart" on https://github.com/oetiker/qx-mojo-app you are already set with a copy of the Qooxdoo sdk in $HOME/sdk/qooxdoo-4.0.1-sdk. In this case immediately proceed with "Setup".
 
 Setup
 -----
@@ -121,14 +121,14 @@ Development
 -----------
 
 While developing the application it is conveniant to NOT have to install it
-before runnning. You can actually server the qooxdoo source directly
-using the mojo webserver.
+before runnning. You can actually serve the Qooxdoo source directly
+using the built-in Mojo webserver.
 
   cd frontend && make source
   cd backend/bin
   ./<%= $p->{name} %>-source-mode.sh daemon
 
-You can now connect to the mojolicious server with your webbrowser.
+You can now connect to the Mojolicious server with your web browser.
 
 Installation
 ------------
@@ -149,7 +149,7 @@ You can also package the application as a nice tar.gz file by running
 Learning
 --------
 
-To learn more about qooxdoo, go to their website. And read up on Qoodoo desktop:
+To learn more about Qooxdoo, go to their website and read up on Qoodoo desktop:
 
   www.qooxdoo.org
 
@@ -290,28 +290,31 @@ fi
 if test x$mod_ok = x0; then
     cat <<NOTES
 
-** SOME PERLMODULES ARE MISSING *******************************
+** SOME PERL MODULES ARE MISSING ******************************
 
 If you know where perl can find the missing modules, set
 the PERL5LIB environment variable accordingly.
 
-You can also install a local copy of the perl modules by running
+You can also install a local copy of the Perl modules by running
 
    $GMAKE get-thirdparty-modules
+   
+You can append additional Perl modules used in your application to
+the file PERL_MODULES to have them downloaded and build automatically.
 
 NOTES
 fi
 
 cat <<NOTES
 
-** CONFIGRUE DONE **********************************************
+** CONFIGURE DONE **********************************************
 
 Settings:
 
   PERL5LIB = ${PERL5LIB:-"not set"}
   PERL = $PERL
 
-The Makefiles uses GNU make functionality.
+The Makefiles use GNU make functionality.
 Continue installation with
 
   $GMAKE install
@@ -359,7 +362,7 @@ A COOL LICENSE FOR YOUR PROJECT
 % ######################################################################################
 % my $p = shift;
 <%= $p->{class} %>
-a cool web app with mojolicious backend
+a cool web app with Mojolicious backend
 
 Copyright (c) <%= $p->{year}." ".$p->{fullName} %> and the other people listed in the
 AUTHORS file.
@@ -473,7 +476,7 @@ use Mojo::Base 'Mojolicious';
 
 =head1 NAME
 
-<%= $p->{class} %> - the mojolicious application class
+<%= $p->{class} %> - the Mojolicious application class
 
 =head1 SYNOPSIS
 
@@ -482,7 +485,7 @@ use Mojo::Base 'Mojolicious';
 
 =head1 DESCRIPTION
 
-Configure the mojo engine to run our application logic as webrequests arrive.
+Configure the mojo engine to run our application logic as web requests arrive.
 
 =head1 ATTRIBUTES
 
@@ -544,7 +547,7 @@ use Mojo::Base qw(Mojolicious::Plugin::Qooxdoo::JsonRpcController);
 
 =head1 DESCRIPTION
 
-This controller handles the rpc calles from the qooxdoo frontend.
+This controller handles the rpc calls from the Qooxdoo frontend.
 
 =head1 ATTRIBUTES
 
@@ -560,13 +563,13 @@ All the methods of L<Mojolicious::Plugin::Qooxdoo::JsonRpcController> as well as
 
 =head1 ATTRIBUTES
 
-The controller the following attributes
+The controller has the following attributes.
 
 =cut
 
 =head2 service
 
-the service property defines the name of the service
+The service property defines the name of the service.
 
 =cut
 
@@ -576,13 +579,13 @@ has log => sub { shift->app->log };
 
 =head1 METHODS
 
-The controller provides the following methods
+The controller provides the following methods:
 
 =cut
 
 =head2 allow_rpc_access(method)
 
-the dispatcher will call allow_rpc_access prior to handing over controll.
+The dispatcher will call allow_rpc_access prior to handing over controll.
 
 =cut
 
@@ -602,7 +605,7 @@ sub allow_rpc_access {
 
 =head2 ping(text)
 
-ping response
+The ping response.
 
 =cut
 
@@ -615,7 +618,7 @@ sub ping {
 
 =head2 getUptime
 
-return the output of uptime.
+Return the output of uptime.
 
 =cut
 
@@ -700,7 +703,7 @@ clean-local:
     "name" : "<%= $p->{class} %>",
 
     "summary" : "<%= $p->{class} %> web app",
-    "description" : "A generic qooxdoo mojo demo app.",
+    "description" : "A generic Qooxdoo Mojolicious demo app.",
 
     "homepage" : "https://github.com/oetiker/qx-mojo-app",
 
@@ -938,7 +941,7 @@ Mojolicious::Command::generate::qx_mojo_app - App generator command
 =head1 DESCRIPTION
 
 L<Mojolicious::Command::generate::qx_mojo_app> generates application directory
-structures for fully functional Qooxdoo web application with a L<Mojolicious> backend.
+structures for a fully functional Qooxdoo web application with a L<Mojolicious> backend.
 
 =head1 SEE ALSO
 
