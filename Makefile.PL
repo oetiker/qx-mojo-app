@@ -5,7 +5,7 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-  NAME         => 'Mojolicious::Commands::generate::qx_mojo_app',
+  NAME         => 'Mojolicious::Command::generate::qx_mojo_app',
   VERSION_FROM => 'lib/Mojolicious/Command/generate/qx_mojo_app.pm',
   ABSTRACT     => 'Mojo generator for a qooxdoo mojolicious app',
   AUTHOR       => 'Tobias Oetiker <tobi@oetiker.ch>',
@@ -21,7 +21,7 @@ WriteMakefile(
       repository  => 'https://github.com/oetiker/qx-mojo-app',
       bugtracker  => 'https://github.com/oetiker/qx-mojo-app/issues'
     },
-    no_index => {directory => ['t']}
+    no_index => {directory => ['t','lib/Mojolicious/Command/generate/qx_mojo_app']}
   },
   test => {TESTS => 't/*.t'}
 );
