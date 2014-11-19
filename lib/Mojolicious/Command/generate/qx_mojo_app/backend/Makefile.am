@@ -9,7 +9,7 @@ BIN = bin/$(MJ_SCRIPT).pl bin/$(MJ_SCRIPT)-source-mode.sh
 
 PM :=  $(shell find lib -name "*.pm") 
 
-THIRDPARTY :=  $(shell test -f thirdparty && find thirdparty -type f)
+THIRDPARTY :=  $(shell test -d thirdparty && find thirdparty -type f)
 
 POD :=  $(shell find lib/ -name "*.pod")
 
