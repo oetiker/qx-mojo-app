@@ -7,7 +7,9 @@ MJ_SCRIPT = <%= $p->{name} %>
 
 BIN = bin/$(MJ_SCRIPT).pl bin/$(MJ_SCRIPT)-source-mode.sh
 
-PM :=  $(shell find lib/ thirdparty/lib/perl5 -name "*.pm")  $(shell test -f thirdparty && find thirdparty/lib/perl5 -type f)
+PM :=  $(shell find lib -name "*.pm") 
+
+THIRDPARTY :=  $(shell test -f thirdparty && find thirdparty -type f)
 
 POD :=  $(shell find lib/ -name "*.pod")
 
@@ -23,7 +25,7 @@ YEAR := $(shell date +%Y)
 DATE := $(shell date +%Y-%m-%d)
 
 datadir = $(prefix)
-nobase_data_DATA = $(PM) $(POD) $(PUB) $(ETC) $(TEMPL)
+nobase_data_DATA = $(PM) $(POD) $(PUB) $(ETC) $(TEMPL) $(THIRDPARTY)
 
 dist_bin_SCRIPTS = $(BIN)
 
