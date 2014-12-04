@@ -142,6 +142,7 @@ You can append additional Perl modules used in your application to
 the file PERL_MODULES to have them downloaded and build automatically.
 
 NOTES
+exit 1
 fi
 
 cat <<NOTES
