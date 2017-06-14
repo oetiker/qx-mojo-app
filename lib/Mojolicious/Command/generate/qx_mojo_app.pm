@@ -79,11 +79,11 @@ EOF
     }
 
     $self->chmod_rel_file("$name/bootstrap", 0755);
-    $self->chmod_rel_file("$name/backend/bin/".$name.".pl", 0755);
-    $self->chmod_rel_file("$name/backend/bin/".$name."-source-mode.sh", 0755);
+    $self->chmod_rel_file("$name/bin/".$name.".pl", 0755);
+    $self->chmod_rel_file("$name/bin/".$name."-source-mode.sh", 0755);
 
-    $self->create_rel_dir("$name/backend/log");
-    $self->create_rel_dir("$name/backend/public");
+    $self->create_rel_dir("$name/log");
+    $self->create_rel_dir("$name/public");
     $self->create_rel_dir("$name/frontend/source/resource/$name");
     $self->create_rel_dir("$name/frontend/source/translation");
     chdir $name;
