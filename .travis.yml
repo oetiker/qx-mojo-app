@@ -22,7 +22,7 @@ script:
   - cd demo
   - wget https://github.com/qooxdoo/qooxdoo/releases/download/release_5_0_2/qooxdoo-5.0.2-sdk.zip
   - unzip qooxdoo-5.0.2-sdk.zip >/dev/null
-  - ./configure --with-qooxdoo-sdk=`pwd`/qooxdoo-5.0.2-sdk
+  - ./configure --with-qooxdoo-sdk-dir=`pwd`/qooxdoo-5.0.2-sdk
   - make
   - make dist
   - sudo make install
