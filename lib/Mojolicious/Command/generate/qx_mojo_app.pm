@@ -92,6 +92,6 @@ EOF
 sub render_data {
   my ($self, $name) = (shift, shift);
     Mojo::Template->new->name("template $name")
-    ->render(path((dirname($INC{'Mojolicious/Command/generate/qx_mojo_app.pm'}).'/qx_mojo_app/'.$name)->slurp), @_);
+    ->render(path(dirname($INC{'Mojolicious/Command/generate/qx_mojo_app.pm'}).'/qx_mojo_app/'.$name)->slurp, @_);
 }
 1;
