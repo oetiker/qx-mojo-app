@@ -1,10 +1,11 @@
 package Mojolicious::Command::generate::qx_mojo_app;
 use Mojo::Base 'Mojolicious::Command';
 use File::Basename;
-use Mojo::Util qw(class_to_file class_to_path slurp);
+use Mojo::Util qw(class_to_file class_to_path);
+use Mojo::File qw(path);
 use POSIX qw(strftime);
 
-our $VERSION = '0.2.2';
+our $VERSION = '0.3.0';
 
 has description => 'Generate Qooxdoo Mojolicious web application directory structure.';
 has usage => sub { shift->extract_usage };
@@ -56,7 +57,7 @@ EOF
     my $email = $userName.'@'.$domain;
 
     if ( -r $ENV{HOME} . '/.gitconfig' ){
-        my $in = slurp $ENV{HOME} . '/.gitconfig';
+        my $in = path($ENV{HOME} . '/.gitconfig')->slurp;
         $in =~ /name\s*=\s*(\S.+\S)/ and $fullName = $1;
         $in =~ /email\s*=\s*(\S+)/ and $email = $1;
     }
@@ -91,6 +92,6 @@ EOF
 sub render_data {
   my ($self, $name) = (shift, shift);
     Mojo::Template->new->name("template $name")
-    ->render(slurp(dirname($INC{'Mojolicious/Command/generate/qx_mojo_app.pm'}).'/qx_mojo_app/'.$name), @_);
+    ->render(path((dirname($INC{'Mojolicious/Command/generate/qx_mojo_app.pm'}).'/qx_mojo_app/'.$name)->slurp), @_);
 }
 1;

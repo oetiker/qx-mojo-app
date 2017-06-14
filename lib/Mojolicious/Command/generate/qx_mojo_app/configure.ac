@@ -91,7 +91,7 @@ mod_ok=1
 if test "$enable_pkgonly" != yes; then
    for module in m4_esyscmd([tr '\n' ' ' < PERL_MODULES | sed 's/\@[^ ]*//g']); do
      AC_MSG_CHECKING([checking for perl module '$module'])
-     if ${PERL} -I`dirname $0`/backend/thirdparty/perl5 -I$actual_prefix/thirdparty/lib/perl5 -e 'use '$module 2>/dev/null ; then
+     if ${PERL} -I`dirname $0`/backend/thirdparty/lib/perl5 -I$actual_prefix/thirdparty/lib/perl5 -e 'use '$module 2>/dev/null ; then
          AC_MSG_RESULT([Ok])
      else
          AC_MSG_RESULT([Failed])
