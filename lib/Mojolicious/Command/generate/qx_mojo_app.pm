@@ -5,7 +5,7 @@ use Mojo::Util qw(class_to_file class_to_path);
 use Mojo::File qw(path);
 use POSIX qw(strftime);
 
-our $VERSION = '0.3.0';
+our $VERSION = '0.4.0';
 
 has description => 'Generate Qooxdoo Mojolicious web application directory structure.';
 has usage => sub { shift->extract_usage };
