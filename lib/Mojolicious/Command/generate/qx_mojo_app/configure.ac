@@ -103,7 +103,8 @@ fi
 
 AC_CONFIG_FILES([
     Makefile
-    backend/Makefile
+    lib/Makefile
+    thirdparty/Makefile
     frontend/Makefile
 ])
 
