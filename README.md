@@ -1,3 +1,6 @@
+This has been superseeded by [Mojolicious Automake](https://github.com/oposs/mojolicious-automake)!
+===================================================
+
 Qooxdoo&Mojolicious App Generator
 =================================
 
